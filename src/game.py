@@ -10,10 +10,11 @@ class Game:
         self.background = pygame.image.load(f'{MEDIA}/backgrounds/bg1.jpg')
         self.background = pygame.transform.scale(self.background, self.size)
         self.platform1 = pygame.image.load(f'{MEDIA}/platforms/platform2.png')
-        self.platform1 = pygame.transform.scale(self.platform1, (200, 50))
+        self.platform1 = pygame.transform.scale(self.platform1, (200, 40))
         self.platforms = pygame.sprite.Group()
         self.create_platforms()
         self.resized = False
+        self.gravity = 0.2
 
     def create_platforms(self):
         self.platforms = []
@@ -24,16 +25,10 @@ class Game:
             rect = pygame.rect.Rect(platform_x * j, self.size[1]-platform_y, platform_x, platform_y)
             self.platforms.append(rect)
 
-    def resize(self):
-        global WIDTH, HEIGHT
-        self.resized = True
-        new_size = self.screen.get_size()
+    def resize(self, size):
         # coefficients = [new_size[0]/self.size[0], new_size[1]/self.size[1]]
-        self.size = new_size
-        WIDTH, HEIGHT = new_size
-        self.background = pygame.transform.scale(self.background, self.size)
-        self.create_platforms()
-
+        self.size = size
+        self.screen = pygame.transform.scale(self.screen, self.size)
 
     def get_platforms(self):
         return self.platforms

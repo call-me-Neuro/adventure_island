@@ -2,7 +2,7 @@ import sys
 
 import pygame
 from PIL import Image
-
+from copy import copy
 
 MEDIA = '../media'
 WIDTH = 800
@@ -21,6 +21,7 @@ def split_animated_gif(gif_file_path):
         ret.append(pygame_image)
     return ret
 
+
 if __name__ == '__main__':
     l = split_animated_gif(f'../{MEDIA}/animations/character/__Run.gif')
     pygame.init()
@@ -33,8 +34,7 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-        screen.blit(l[i%len(l)], l[i%len(l)].get_rect())
-        i+=1
+        screen.blit(l[i % len(l)], l[i % len(l)].get_rect())
+        i += 1
         clock.tick(60)
         pygame.display.update()
-
