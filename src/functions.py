@@ -22,19 +22,20 @@ def split_animated_gif(gif_file_path):
     return ret
 
 
-if __name__ == '__main__':
-    l = split_animated_gif(f'../{MEDIA}/animations/character/__Run.gif')
-    pygame.init()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    screen.fill((0, 0, 0))
-    i = 0
-    clock = pygame.time.Clock()
-    while True:
-        screen.fill((0, 0, 0))
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-        screen.blit(l[i % len(l)], l[i % len(l)].get_rect())
-        i += 1
-        clock.tick(60)
-        pygame.display.update()
+def get_animation_sheet(path, frames):
+    images = []
+    img = pygame.image.load(path).convert_alpha()
+    size = img.get_size()
+    for i in range(frames):
+        surface = pygame.Surface((size[0]/frames, size[1]))
+        surface.blit(img, (size[0]/frames*i*-1, 0))
+        images.append(surface)
+    return images
+
+def get_animation_sheet2(path, frames):
+    images = []
+    img = pygame.image.load(path).convert_alpha()
+    size = img.get_size()
+    for i in range(frames):
+        images.append(img.subsurface(i * size[0]/frames, 0, size[0]/frames, size[1]))
+    return images
