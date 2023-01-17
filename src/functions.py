@@ -27,15 +27,5 @@ def get_animation_sheet(path, frames):
     img = pygame.image.load(path).convert_alpha()
     size = img.get_size()
     for i in range(frames):
-        surface = pygame.Surface((size[0]/frames, size[1]))
-        surface.blit(img, (size[0]/frames*i*-1, 0))
-        images.append(surface)
-    return images
-
-def get_animation_sheet2(path, frames):
-    images = []
-    img = pygame.image.load(path).convert_alpha()
-    size = img.get_size()
-    for i in range(frames):
         images.append(img.subsurface(i * size[0]/frames, 0, size[0]/frames, size[1]))
     return images
